@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CircuitForge | Analog Simulator</title>
+  <link rel="stylesheet" href="analog.css">
+</head>
+<body>
+  <header>
+    <a href="index.html">← CircuitForge</a>
+    <h1>Analog Circuit Simulator</h1>
+    <p>Real RC transient simulation powered by ngspice</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>RC Circuit Parameters</h2>
+
+      <label>
+        Resistance (Ω)
+        <input id="resistance" type="number" value="1000" min="0.001">
+      </label>
+
+      <label>
+        Capacitance (F)
+        <input id="capacitance" type="number" value="0.0001" min="0.000000001" step="any">
+      </label>
+
+      <label>
+        Input Voltage (V)
+        <input id="voltage" type="number" value="5" min="0.001">
+      </label>
+
+      <label>
+        Simulation Duration (s)
+        <input id="duration" type="number" value="0.5" min="0.001" max="10" step="any">
+      </label>
+
+      <button id="simulate">Run ngspice Simulation</button>
+      <p id="status">Backend connection: waiting</p>
+    </section>
+
+    <section class="panel">
+      <h2>Output Voltage Waveform</h2>
+      <canvas id="waveform" width="900" height="380"></canvas>
+      <p id="result">Run a simulation to see results.</p>
+    </section>
+  </main>
+
+  <script src="analog.js"></script>
+</body>
+</html>
