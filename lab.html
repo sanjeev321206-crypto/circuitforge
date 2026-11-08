@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090f1b">
+  <title>Digital Circuit Lab — CircuitForge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="lab.css">
+</head>
+<body class="lab-page">
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M6 7h8v7h5v-4h7M6 25h8v-7h5v4h7M19 14v4"/></svg></span><span>Circuit<span>Forge</span></span></a>
+  <nav class="nav-links"><a href="index.html#home">Home</a><a href="index.html#projects">Projects</a><a class="active" href="lab.html">Interactive lab</a></nav>
+  <a class="top-cta" href="index.html">Back to home ↗</a>
+</header>
+<main class="section-wrap lab-main">
+  <div class="lab-page-head"><div><div class="eyebrow"><span class="pulse"></span> CIRCUITFORGE / DIGITAL LAB</div><h1>Digital Circuit <span>Lab.</span></h1><p>Build small combinational circuits, connect logic stages and test how signals propagate.</p></div><div class="version-chip">BROWSER SIMULATOR · v0.2</div></div>
+  <div class="builder-shell">
+    <aside class="toolbox">
+      <div class="toolbox-title">COMPONENTS <span>01</span></div>
+      <p class="tool-hint">Select a component, then click an empty spot on the canvas to place it.</p>
+      <button class="component-btn selected" data-kind="INPUT"><span class="component-symbol input-symbol">I</span><span><b>Input switch</b><small>Binary source · 0 / 1</small></span><span class="plus">+</span></button>
+      <button class="component-btn" data-kind="AND"><span class="component-symbol">∧</span><span><b>AND gate</b><small>Both inputs HIGH</small></span><span class="plus">+</span></button>
+      <button class="component-btn" data-kind="OR"><span class="component-symbol">≥1</span><span><b>OR gate</b><small>Either input HIGH</small></span><span class="plus">+</span></button>
+      <button class="component-btn" data-kind="NOT"><span class="component-symbol">¬</span><span><b>NOT gate</b><small>Inverts its input</small></span><span class="plus">+</span></button>
+      <button class="component-btn" data-kind="XOR"><span class="component-symbol">=1</span><span><b>XOR gate</b><small>Inputs are different</small></span><span class="plus">+</span></button>
+      <button class="component-btn" data-kind="OUTPUT"><span class="component-symbol output-symbol">Y</span><span><b>Output LED</b><small>Displays final signal</small></span><span class="plus">+</span></button>
+      <div class="toolbox-note"><b>How to connect</b><p>Click an output port, then click an input port on another component. Click a switch to toggle its value.</p></div>
+    </aside>
+    <section class="work-area">
+      <div class="canvas-toolbar"><div><span class="live-dot"></span> CIRCUIT CANVAS <span class="canvas-sub">/ COMBINATIONAL LOGIC</span></div><div class="toolbar-actions"><button id="exampleBtn">Load example</button><button id="clearBtn">Clear</button></div></div>
+      <div class="canvas-wrap">
+        <svg id="wires" class="wires-layer" aria-label="Circuit connections"></svg>
+        <div id="canvas" class="circuit-canvas"><div class="empty-state" id="emptyState"><div class="empty-icon">⌁</div><b>Your canvas is ready</b><span>Add components from the left panel to start building.</span></div></div>
+      </div>
+      <div class="canvas-footer"><span id="selectionHint">SELECT A COMPONENT TO PLACE</span><span><i class="status-dot"></i> LIVE LOGIC EVALUATION</span></div>
+    </section>
+    <aside class="inspector">
+      <div class="toolbox-title">INSPECTOR <span>02</span></div>
+      <div id="inspectorContent" class="inspector-content"><div class="inspector-empty"><span>⌖</span><b>No component selected</b><small>Select a component on the canvas to inspect its properties.</small></div></div>
+      <div class="inspector-bottom"><div class="mini-stat"><span>COMPONENTS</span><b id="componentCount">0</b></div><div class="mini-stat"><span>CONNECTIONS</span><b id="connectionCount">0</b></div></div>
+    </aside>
+  </div>
+  <div class="lab-help"><div><b>Simulation model</b><p>This is a browser-based educational simulator for simple combinational logic. It evaluates gate outputs from their connected inputs; it does not yet model propagation delay, electrical loading or physical voltage levels.</p></div><a href="index.html#projects">← All projects</a></div>
+</main>
+<script src="lab.js"></script>
+</body></html>
