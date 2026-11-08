@@ -18,7 +18,7 @@
 <main class="section-wrap vv-main">
   <div class="vv-heading">
     <div><div class="eyebrow"><span class="pulse"></span> CIRCUITFORGE / HDL WORKBENCH</div><h1>Verilog <span>Visualizer.</span></h1><p>Explore RTL examples, apply input vectors and inspect signal changes over time.</p></div>
-    <div class="version-chip">BROWSER PREVIEW · v0.1</div>
+    <div class="version-chip">IVERILOG BACKEND · v0.2</div>
   </div>
   <div class="vv-notice"><b>HDL simulation:</b> built-in examples are compiled and simulated using Icarus Verilog through the CircuitForge HDL backend.</div>
   <section class="vv-shell">
@@ -31,10 +31,10 @@
       <aside class="vv-side">
         <div class="side-title">MODULE INFO</div><div class="module-name" id="moduleName">half_adder</div><p id="moduleDesc">Adds two 1-bit inputs and produces sum and carry outputs.</p>
         <div class="side-title ports-title">PORTS</div><div id="portList" class="port-list"></div>
-        <div class="side-title ports-title">SIMULATION</div><div class="sim-meta"><span>ENGINE</span><b>Built-in example model</b></div><div class="sim-meta"><span>TIME STEP</span><b id="timeStep">10 ns</b></div>
+        <div class="side-title ports-title">SIMULATION</div><div class="sim-meta"><span>ENGINE</span><b>Icarus Verilog</b></div><div class="sim-meta"><span>TIME STEP</span><b id="timeStep">10 ns</b></div>
       </aside>
     </div>
-    <div class="vv-runbar"><div><span class="status-dot"></span><span id="runStatus">READY · SELECT AN EXAMPLE</span></div><button class="run-button" id="runSimulation">▶ Run preview</button></div>
+    <div class="vv-runbar"><div><span class="status-dot"></span><span id="runStatus">READY · SELECT AN EXAMPLE</span></div><button class="run-button" id="runSimulation">▶ Run simulation</button></div>
   </section>
   <section class="wave-section">
     <div class="wave-head"><div><div class="eyebrow">SIGNAL INSPECTION</div><h2>Timing waveform<span>.</span></h2><p>Each row shows a digital signal across the generated test sequence.</p></div><span class="section-index">WAVEFORM / 001</span></div>
