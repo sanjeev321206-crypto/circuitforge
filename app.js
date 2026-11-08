@@ -1,6 +1,6 @@
 const projects = [
   {n:"01",icon:"⌘",name:"Digital Circuit Lab",desc:"Build logic circuits, connect gates and experiment with digital signals in an interactive workspace.",tag:"DIGITAL LOGIC",status:"Interactive demo",anchor:"lab.html"},
-  {n:"02",icon:"⌁",name:"Verilog Visualizer",desc:"Explore RTL behaviour through signal waveforms, testbench results and step-by-step simulation.",tag:"HDL / RTL",status:"Planned",anchor:"#about"},
+  {n:"02",icon:"⌁",name:"Verilog Visualizer",desc:"Explore RTL behaviour through signal waveforms, testbench results and step-by-step simulation.",tag:"HDL / RTL",status:"Browser preview",anchor:"verilog.html"},
   {n:"03",icon:"∿",name:"Analog Circuit Simulator",desc:"Experiment with RC, RLC and op-amp circuits and inspect their voltage and frequency responses.",tag:"ANALOG",status:"Planned",anchor:"#about"},
   {n:"04",icon:"▦",name:"CPU Architecture Simulator",desc:"Follow instructions through a processor pipeline and understand hazards, forwarding and performance.",tag:"COMPUTER ARCHITECTURE",status:"Planned",anchor:"#about"},
   {n:"05",icon:"▣",name:"Mini EDA Dashboard",desc:"Explore synthesis reports, logic utilisation, timing estimates and design trade-offs.",tag:"EDA / VLSI",status:"Planned",anchor:"#about"}

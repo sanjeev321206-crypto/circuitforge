@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090f1b">
+  <meta name="description" content="Explore RTL examples, input vectors and digital waveforms in CircuitForge Verilog Visualizer.">
+  <title>Verilog Visualizer — CircuitForge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="verilog.css">
+</head>
+<body class="verilog-page">
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M6 7h8v7h5v-4h7M6 25h8v-7h5v4h7M19 14v4"/></svg></span><span>Circuit<span>Forge</span></span></a>
+  <nav class="nav-links"><a href="index.html#home">Home</a><a href="index.html#projects">Projects</a><a href="lab.html">Digital lab</a><a class="active" href="verilog.html">Verilog</a></nav>
+  <a class="top-cta" href="index.html#projects">All projects ↗</a>
+</header>
+<main class="section-wrap vv-main">
+  <div class="vv-heading">
+    <div><div class="eyebrow"><span class="pulse"></span> CIRCUITFORGE / HDL WORKBENCH</div><h1>Verilog <span>Visualizer.</span></h1><p>Explore RTL examples, apply input vectors and inspect signal changes over time.</p></div>
+    <div class="version-chip">BROWSER PREVIEW · v0.1</div>
+  </div>
+  <div class="vv-notice"><b>Preview mode:</b> the examples below use built-in browser models. This page does not yet compile arbitrary Verilog. Icarus Verilog integration is the next engineering milestone.</div>
+  <section class="vv-shell">
+    <div class="vv-toolbar">
+      <div><span class="live-dot"></span> RTL EDITOR <span class="canvas-sub">/ SOURCE VIEW</span></div>
+      <div class="vv-actions"><label class="sr-only" for="exampleSelect">Example module</label><select id="exampleSelect"><option value="halfAdder">Half adder</option><option value="fullAdder">Full adder</option><option value="mux2">2:1 multiplexer</option><option value="counter">4-bit counter</option></select><button id="resetCode">Reset code</button></div>
+    </div>
+    <div class="vv-editor-grid">
+      <div class="editor-wrap"><div class="editor-title"><span>design.v</span><span id="editorStatus">EXAMPLE LOADED</span></div><div class="code-editor"><pre id="lineNumbers">1</pre><textarea id="codeEditor" spellcheck="false" aria-label="Verilog source editor"></textarea></div></div>
+      <aside class="vv-side">
+        <div class="side-title">MODULE INFO</div><div class="module-name" id="moduleName">half_adder</div><p id="moduleDesc">Adds two 1-bit inputs and produces sum and carry outputs.</p>
+        <div class="side-title ports-title">PORTS</div><div id="portList" class="port-list"></div>
+        <div class="side-title ports-title">SIMULATION</div><div class="sim-meta"><span>ENGINE</span><b>Built-in example model</b></div><div class="sim-meta"><span>TIME STEP</span><b id="timeStep">10 ns</b></div>
+      </aside>
+    </div>
+    <div class="vv-runbar"><div><span class="status-dot"></span><span id="runStatus">READY · SELECT AN EXAMPLE</span></div><button class="run-button" id="runSimulation">▶ Run preview</button></div>
+  </section>
+  <section class="wave-section">
+    <div class="wave-head"><div><div class="eyebrow">SIGNAL INSPECTION</div><h2>Timing waveform<span>.</span></h2><p>Each row shows a digital signal across the generated test sequence.</p></div><span class="section-index">WAVEFORM / 001</span></div>
+    <div class="wave-panel"><div class="wave-toolbar"><span>SIMULATION TRACE</span><span id="waveDuration">DURATION · 40 ns</span></div><div id="waveform" class="waveform"><div class="wave-empty">Run a preview to generate signal traces.</div></div></div>
+  </section>
+  <section class="results-section">
+    <div class="wave-head"><div><div class="eyebrow">TEST VECTORS</div><h2>Simulation results<span>.</span></h2></div><span class="section-index">OUTPUT / 002</span></div>
+    <div class="results-panel"><table><thead id="resultHead"></thead><tbody id="resultBody"><tr><td class="empty-cell" colspan="5">No results yet. Run a preview.</td></tr></tbody></table></div>
+  </section>
+  <div class="vv-footnote"><b>Engineering note</b><p>Waveforms and tables are generated from the selected example's built-in behavioural model, not by parsing the text in the editor. Editing the source is useful for annotation, but changes will not affect the preview until a real HDL compiler is connected.</p><a href="index.html#projects">← Back to all projects</a></div>
+</main>
+<script src="verilog.js"></script>
+</body></html>
