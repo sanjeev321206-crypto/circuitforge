@@ -48,17 +48,106 @@ function makeWave(name,values,total){
   values.forEach((v,i)=>{const x=(i+1)*step,y=v?7:25;d+=` H ${x} V ${y}`});
   return `<div class="signal-label">${name}</div><svg class="signal-svg" viewBox="0 0 ${w} 32" preserveAspectRatio="none"><path d="${d}"/></svg>`;
 }
-function run(){
-  const ex=examples[selected];let rows=[];
-  if(selected==="counter"){
-    let count=0;rows=ex.vectors.map((v,i)=>{if(v[1])count=0;else if(v[0])count=(count+1)&15;return {clk:v[0],reset:v[1],count:count.toString(2).padStart(4,"0")}})
-  }else rows=ex.vectors.map(v=>ex.calc(v));
-  const keys=Object.keys(rows[0]);$("resultHead").innerHTML="<tr>"+keys.map(k=>`<th>${k.toUpperCase()}</th>`).join("")+"</tr>";
-  $("resultBody").innerHTML=rows.map(r=>"<tr>"+keys.map(k=>`<td class='bit'>${r[k]}</td>`).join("")+"</tr>").join("");
-  const duration=rows.length*10;$("waveDuration").textContent=`DURATION · ${duration} ns`;
-  const signals=ex.signals;
-  $("waveform").innerHTML=`<div class="wave-grid">${signals.map(name=>{let vals=rows.map(r=>{const x=r[name];if(name==="count")return parseInt(x,2)&1;return Number(x)&1});return makeWave(name,vals,duration)}).join("")}<div class="time-axis">${Array.from({length:rows.length+1},(_,i)=>`<span>${i*10} ns</span>`).join("")}</div></div>`;
-  $("runStatus").textContent=`PREVIEW COMPLETE · ${rows.length} TEST VECTORS`;$("editorStatus").textContent="SOURCE VIEW · PREVIEW MODEL";
+async function run(){
+  const benches = {
+    halfAdder: `module tb;
+      reg a,b; wire sum,carry;
+      half_adder dut(a,b,sum,carry);
+      initial begin
+        $display("a b sum carry");
+        a=0;b=0;#10;$display("%b %b %b %b",a,b,sum,carry);
+        a=0;b=1;#10;$display("%b %b %b %b",a,b,sum,carry);
+        a=1;b=0;#10;$display("%b %b %b %b",a,b,sum,carry);
+        a=1;b=1;#10;$display("%b %b %b %b",a,b,sum,carry);
+        $finish;
+      end
+    endmodule`,
+    fullAdder: `module tb;
+      reg a,b,cin; wire sum,cout; integer i;
+      full_adder dut(a,b,cin,sum,cout);
+      initial begin
+        $display("a b cin sum cout");
+        for(i=0;i<8;i=i+1) begin
+          {a,b,cin}=i; #10;
+          $display("%b %b %b %b %b",a,b,cin,sum,cout);
+        end
+        $finish;
+      end
+    endmodule`,
+    mux2: `module tb;
+      reg d0,d1,s; wire y; integer i;
+      mux2 dut(d0,d1,s,y);
+      initial begin
+        $display("d0 d1 s y");
+        for(i=0;i<8;i=i+1) begin
+          {d0,d1,s}=i; #10;
+          $display("%b %b %b %b",d0,d1,s,y);
+        end
+        $finish;
+      end
+    endmodule`,
+    counter: `module tb;
+      reg clk=0,reset=0;
+      wire [3:0] count;
+      counter4 dut(clk,reset,count);
+      initial begin
+        $display("clk reset count");
+        #2 reset=1;
+        #2 $display("%b %b %b",clk,reset,count);
+        #2 reset=0;
+        repeat(6) begin
+          #4 clk=1;
+          #1 $display("%b %b %b",clk,reset,count);
+          #4 clk=0;
+        end
+        $finish;
+      end
+    endmodule`
+  };
+
+  const button=$("runSimulation");
+  button.disabled=true;
+  $("runStatus").textContent="RUNNING · ICARUS VERILOG";
+  $("resultBody").textContent="";
+  $("waveform").textContent="Running actual HDL simulation...";
+
+  try {
+    const response=await fetch("https://missed-leisure-colorado-animated.trycloudflare.com/simulate",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        verilog_code:$("codeEditor").value,
+        testbench_code:benches[selected]
+      })
+    });
+
+    const data=await response.json();
+
+    if(!data.success){
+      $("runStatus").textContent="SIMULATION FAILED";
+      $("resultBody").textContent=data.errors||"Compilation or simulation failed.";
+      $("waveform").textContent=data.stage||"Check your Verilog code.";
+      return;
+    }
+
+    const lines=data.output.trim().split(/\r?\n/).filter(Boolean);
+    const headers=lines.shift().split(/\s+/);
+    const rows=lines.filter(x=>!x.includes("$finish called")).map(x=>x.trim().split(/\s+/));
+
+    $("resultHead").innerHTML="<tr>"+headers.map(x=>`<th>${x.toUpperCase()}</th>`).join("")+"</tr>";
+    $("resultBody").innerHTML=rows.map(row=>"<tr>"+row.map(x=>`<td class='bit'>${x}</td>`).join("")+"</tr>").join("");
+
+    $("waveDuration").textContent="REAL HDL SIMULATION";
+    $("waveform").textContent="Actual Icarus Verilog results displayed above. Real waveform export is a future step.";
+    $("runStatus").textContent=`SIMULATION COMPLETE · ${rows.length} RESULT ROWS`;
+    $("editorStatus").textContent="COMPILED · ICARUS VERILOG";
+
+  } catch(error) {
+    $("runStatus").textContent="CONNECTION ERROR";
+    $("waveform").textContent=error.message;
+  } finally {
+    button.disabled=false;
+  }
 }
 $("exampleSelect").addEventListener("change",e=>loadExample(e.target.value));
 $("resetCode").addEventListener("click",()=>loadExample(selected));
